@@ -24,7 +24,21 @@ const tree = (array) => {
     return buildBranch(0, sorted.length - 1)
   }
 
-  const root = buildTree(array, 0, array.lengh - 1)
+  const root = buildTree(array, 0, array.length - 1)
+
+  const insert = (root, newData) => {
+    if (root === null) {
+      return node(newData)
+    }
+
+    if (newData < root.data) {
+      root.left = insert(root.left, newData)
+    } else if (newData > root.data) {
+      root.right = insert(root.right, newData)
+    }
+
+    return root
+  }
 
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) { return }
@@ -37,6 +51,12 @@ const tree = (array) => {
     }
   }
   prettyPrint(root)
+
+  return {
+    root,
+    insert,
+    prettyPrint
+  }
 }
 
 const thing = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -44,5 +64,10 @@ const newTree = tree(thing)
 
 console.log('----------------')
 
-const unorderedThing = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-const unorderedTree = tree(unorderedThing)
+newTree.insert(newTree.root, 5.5)
+newTree.insert(newTree.root, -5)
+newTree.insert(newTree.root, 3.75)
+newTree.insert(newTree.root, 3.8)
+newTree.insert(newTree.root, 25)
+newTree.insert(newTree.root, 25)
+newTree.prettyPrint(newTree.root)
