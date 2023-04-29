@@ -24,7 +24,7 @@ const tree = (array) => {
     return buildBranch(0, sorted.length - 1)
   }
 
-  const root = buildTree(array, 0, array.length - 1)
+  let root = buildTree(array, 0, array.length - 1)
 
   const insert = (root, newData) => {
     if (root === null) {
@@ -37,6 +37,17 @@ const tree = (array) => {
       root.right = insert(root.right, newData)
     }
 
+    return root
+  }
+
+  const find = (toFind, root) => {
+    if (!root) return null
+    while (root) {
+      if (root && root.data === toFind) { return root }
+      if (toFind < root.data && root.left) root = root.left
+      else if (toFind > root.data && root.right) root = root.right
+      else root = null
+    }
     return root
   }
 
@@ -55,7 +66,8 @@ const tree = (array) => {
   return {
     root,
     insert,
-    prettyPrint
+    prettyPrint,
+    find
   }
 }
 
@@ -70,4 +82,14 @@ newTree.insert(newTree.root, 3.75)
 newTree.insert(newTree.root, 3.8)
 newTree.insert(newTree.root, 25)
 newTree.insert(newTree.root, 25)
+newTree.insert(newTree.root, 4.2)
+newTree.insert(newTree.root, 4.3)
+newTree.insert(newTree.root, 4.1)
 newTree.prettyPrint(newTree.root)
+
+console.log('----------------')
+
+console.log(newTree.find(-5, newTree.root))
+console.log(newTree.find(9, newTree.root))
+console.log(newTree.find(5, newTree.root))
+console.log(newTree.find(-10501, newTree.root))
