@@ -7,7 +7,7 @@ const node = (data) => {
 }
 
 const tree = (array) => {
-  const buildTree = (array, start, end) => {
+  const buildTree = (array) => {
     const sorted = array.sort((a, b) => a - b).filter((item, i) => array.indexOf(item) === i)
 
     const buildBranch = (start, end) => {
@@ -24,7 +24,7 @@ const tree = (array) => {
     return buildBranch(0, sorted.length - 1)
   }
 
-  let root = buildTree(array, 0, array.length - 1)
+  let root = buildTree(array)
 
   const insert = (root, newData) => {
     if (root === null) {
