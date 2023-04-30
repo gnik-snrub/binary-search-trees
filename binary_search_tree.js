@@ -51,6 +51,24 @@ const tree = (array) => {
     return root
   }
 
+  const levelOrder = (root, fn) => {
+    if (!root) return []
+
+    const queue = [root]
+    const values = []
+
+    while (queue.length) {
+      const nextNode = queue.shift()
+
+      if (fn) fn(nextNode.data)
+      else values.push(nextNode.data)
+
+      if (nextNode.left) queue.push(nextNode.left)
+      if (nextNode.right) queue.push(nextNode.right)
+    }
+    return values
+  }
+
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) { return }
     if (node.right !== null) {
@@ -67,7 +85,8 @@ const tree = (array) => {
     root,
     insert,
     prettyPrint,
-    find
+    find,
+    levelOrder
   }
 }
 
@@ -93,3 +112,14 @@ console.log(newTree.find(-5, newTree.root))
 console.log(newTree.find(9, newTree.root))
 console.log(newTree.find(5, newTree.root))
 console.log(newTree.find(-10501, newTree.root))
+
+console.log('----------------')
+
+let count = 0
+const testFunc = (val) => {
+  if (Math.round(val) % 2 === 0) count *= val
+  else count += val
+}
+newTree.levelOrder(newTree.root, testFunc)
+console.log(count)
+console.log(newTree.levelOrder(newTree.root))
