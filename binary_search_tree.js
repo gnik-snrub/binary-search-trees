@@ -95,7 +95,9 @@ const tree = (array) => {
   prettyPrint(root)
 
   return {
-    root,
+    get root() {
+      return root
+    },
     insert,
     prettyPrint,
     find,
