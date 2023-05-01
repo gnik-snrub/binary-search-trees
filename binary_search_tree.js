@@ -69,6 +69,19 @@ const tree = (array) => {
     return values
   }
 
+  const inOrder = (root, fn) => {
+    if (!root) return []
+
+    const values = []
+
+    if (root.left) values.push(inOrder(root.left, fn))
+    if (fn) fn(root.data)
+    else values.push(root.data)
+    if (root.right) values.push(inOrder(root.right, fn))
+
+    return [...values].flat()
+  }
+
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) { return }
     if (node.right !== null) {
@@ -87,6 +100,8 @@ const tree = (array) => {
     prettyPrint,
     find,
     levelOrder
+    levelOrder,
+    inOrder,
   }
 }
 
