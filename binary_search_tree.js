@@ -95,6 +95,19 @@ const tree = (array) => {
     return [...values].flat()
   }
 
+  const postOrder = (root, fn) => {
+    if (!root) return []
+
+    const values = []
+
+    if (root.left) values.push(postOrder(root.left, fn))
+    if (root.right) values.push(postOrder(root.right, fn))
+    if (fn) fn(root.data)
+    else values.push(root.data)
+
+    return [...values].flat()
+  }
+
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) { return }
     if (node.right !== null) {
@@ -117,6 +130,7 @@ const tree = (array) => {
     levelOrder,
     inOrder,
     preOrder,
+    postOrder,
   }
 }
 
@@ -161,3 +175,6 @@ console.log(newTree.inOrder(newTree.root))
 newTree.preOrder(newTree.root, logTest)
 console.log(newTree.preOrder(newTree.root))
 
+newTree.postOrder(newTree.root, logTest)
+console.log(newTree.postOrder(newTree.root))
+newTree.prettyPrint(newTree.root)
