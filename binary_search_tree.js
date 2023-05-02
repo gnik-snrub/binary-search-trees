@@ -108,6 +108,10 @@ const tree = (array) => {
     return [...values].flat()
   }
 
+  const rebalance = () => {
+    root = buildTree(inOrder(root))
+  }
+
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) { return }
     if (node.right !== null) {
@@ -131,6 +135,7 @@ const tree = (array) => {
     inOrder,
     preOrder,
     postOrder,
+    rebalance
   }
 }
 
@@ -177,4 +182,7 @@ console.log(newTree.preOrder(newTree.root))
 
 newTree.postOrder(newTree.root, logTest)
 console.log(newTree.postOrder(newTree.root))
+newTree.prettyPrint(newTree.root)
+
+newTree.rebalance(newTree.root)
 newTree.prettyPrint(newTree.root)
