@@ -153,23 +153,23 @@ const newTree = tree(thing)
 
 console.log('----------------')
 
-newTree.insert(newTree.root, 5.5)
-newTree.insert(newTree.root, -5)
-newTree.insert(newTree.root, 3.75)
-newTree.insert(newTree.root, 3.8)
-newTree.insert(newTree.root, 25)
-newTree.insert(newTree.root, 25)
-newTree.insert(newTree.root, 4.2)
-newTree.insert(newTree.root, 4.3)
-newTree.insert(newTree.root, 4.1)
+newTree.insert(5.5)
+newTree.insert(-5)
+newTree.insert(3.75)
+newTree.insert(3.8)
+newTree.insert(25)
+newTree.insert(25)
+newTree.insert(4.2)
+newTree.insert(4.3)
+newTree.insert(4.1)
 newTree.prettyPrint(newTree.root)
 
 console.log('----------------')
 
-console.log(newTree.find(-5, newTree.root))
-console.log(newTree.find(9, newTree.root))
-console.log(newTree.find(5, newTree.root))
-console.log(newTree.find(-10501, newTree.root))
+console.log(newTree.find(-5))
+console.log(newTree.find(9))
+console.log(newTree.find(5))
+console.log(newTree.find(-10501))
 
 console.log('----------------')
 
@@ -178,26 +178,37 @@ const testFunc = (val) => {
   if (Math.round(val) % 2 === 0) count *= val
   else count += val
 }
-newTree.levelOrder(newTree.root, testFunc)
+newTree.levelOrder(testFunc)
 console.log(count)
-console.log(newTree.levelOrder(newTree.root))
+console.log(newTree.levelOrder())
+
+console.log('----------------')
 
 const logTest = (val) => console.log(val)
-newTree.inOrder(newTree.root, logTest)
-console.log(newTree.inOrder(newTree.root))
+newTree.inOrder(logTest)
+console.log(newTree.inOrder())
 
-newTree.preOrder(newTree.root, logTest)
-console.log(newTree.preOrder(newTree.root))
+console.log('----------------')
 
-newTree.postOrder(newTree.root, logTest)
-console.log(newTree.postOrder(newTree.root))
+newTree.preOrder(logTest)
+console.log(newTree.preOrder())
+
+console.log('----------------')
+
+newTree.postOrder(logTest)
+console.log(newTree.postOrder())
+
+console.log('----------------')
+
+newTree.rebalance()
 newTree.prettyPrint(newTree.root)
 
-newTree.rebalance(newTree.root)
-newTree.prettyPrint(newTree.root)
+console.log('----------------')
 
 console.log(newTree.height())
 console.log(newTree.height(newTree.find(3.75)))
 console.log(newTree.height(newTree.find(2)))
 console.log(newTree.height(newTree.find(1)))
 console.log(newTree.height(newTree.find(-5)))
+
+console.log('----------------')
