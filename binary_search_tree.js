@@ -26,35 +26,35 @@ const tree = (array) => {
 
   let root = buildTree(array)
 
-  const insert = (root, newData) => {
-    if (root === null) {
+  const insert = (newData, insertAt = root) => {
+    if (insertAt === null) {
       return node(newData)
     }
 
-    if (newData < root.data) {
-      root.left = insert(root.left, newData)
-    } else if (newData > root.data) {
-      root.right = insert(root.right, newData)
+    if (newData < insertAt.data) {
+      insertAt.left = insert(newData, insertAt.left)
+    } else if (newData > insertAt.data) {
+      insertAt.right = insert(newData, insertAt.right)
     }
 
-    return root
+    return insertAt
   }
 
-  const find = (toFind, root) => {
-    if (!root) return null
-    while (root) {
-      if (root && root.data === toFind) { return root }
-      if (toFind < root.data && root.left) root = root.left
-      else if (toFind > root.data && root.right) root = root.right
-      else root = null
+  const find = (toFind, node = root) => {
+    if (!node) return null
+    while (node) {
+      if (node && node.data === toFind) { return node }
+      if (toFind < node.data && node.left) node = node.left
+      else if (toFind > node.data && node.right) node = node.right
+      else node = null
     }
-    return root
+    return node
   }
 
-  const levelOrder = (root, fn) => {
-    if (!root) return []
+  const levelOrder = (fn, node = root) => {
+    if (!node) return []
 
-    const queue = [root]
+    const queue = [node]
     const values = []
 
     while (queue.length) {
@@ -69,41 +69,41 @@ const tree = (array) => {
     return values
   }
 
-  const inOrder = (root, fn) => {
-    if (!root) return []
+  const inOrder = (fn, node = root) => {
+    if (!node) return []
 
     const values = []
 
-    if (root.left) values.push(inOrder(root.left, fn))
-    if (fn) fn(root.data)
-    else values.push(root.data)
-    if (root.right) values.push(inOrder(root.right, fn))
+    if (node.left) values.push(inOrder(fn, node.left))
+    if (fn) fn(node.data)
+    else values.push(node.data)
+    if (node.right) values.push(inOrder(fn, node.right))
 
     return [...values].flat()
   }
 
-  const preOrder = (root, fn) => {
-    if (!root) return []
+  const preOrder = (fn, node = root) => {
+    if (!node) return []
 
     const values = []
 
-    if (fn) fn(root.data)
-    else values.push(root.data)
-    if (root.left) values.push(preOrder(root.left, fn))
-    if (root.right) values.push(preOrder(root.right, fn))
+    if (fn) fn(node.data)
+    else values.push(node.data)
+    if (node.left) values.push(preOrder(fn, node.left))
+    if (node.right) values.push(preOrder(fn, node.right))
 
     return [...values].flat()
   }
 
-  const postOrder = (root, fn) => {
-    if (!root) return []
+  const postOrder = (fn, node = root) => {
+    if (!node) return []
 
     const values = []
 
-    if (root.left) values.push(postOrder(root.left, fn))
-    if (root.right) values.push(postOrder(root.right, fn))
-    if (fn) fn(root.data)
-    else values.push(root.data)
+    if (node.left) values.push(postOrder(fn, node.left))
+    if (node.right) values.push(postOrder(fn, node.right))
+    if (fn) fn(node.data)
+    else values.push(node.data)
 
     return [...values].flat()
   }
@@ -117,7 +117,7 @@ const tree = (array) => {
   }
 
   const rebalance = () => {
-    root = buildTree(inOrder(root))
+    root = buildTree(inOrder())
   }
 
   const prettyPrint = (node, prefix = '', isLeft = true) => {
