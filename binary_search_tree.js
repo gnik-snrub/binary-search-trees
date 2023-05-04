@@ -108,6 +108,14 @@ const tree = (array) => {
     return [...values].flat()
   }
 
+  const height = (node = root) => {
+    if (node === null) return 0
+    if (node.left === null && node.right === null) return 0
+    const left = height(node.left)
+    const right = height(node.right)
+    return Math.max(left, right) + 1
+  }
+
   const rebalance = () => {
     root = buildTree(inOrder(root))
   }
@@ -135,7 +143,8 @@ const tree = (array) => {
     inOrder,
     preOrder,
     postOrder,
-    rebalance
+    rebalance,
+    height
   }
 }
 
@@ -186,3 +195,9 @@ newTree.prettyPrint(newTree.root)
 
 newTree.rebalance(newTree.root)
 newTree.prettyPrint(newTree.root)
+
+console.log(newTree.height())
+console.log(newTree.height(newTree.find(3.75)))
+console.log(newTree.height(newTree.find(2)))
+console.log(newTree.height(newTree.find(1)))
+console.log(newTree.height(newTree.find(-5)))
