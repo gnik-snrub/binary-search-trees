@@ -116,6 +116,14 @@ const tree = (array) => {
     return Math.max(left, right) + 1
   }
 
+  const depth = (toFind, node = root, currDepth = 0) => {
+    if (node === null) return 0
+    if (toFind.data === node.data) return currDepth
+    const left = depth(toFind, node.left, currDepth)
+    const right = depth(toFind, node.right, currDepth)
+    return Math.min(left, right) + 1
+  }
+
   const rebalance = () => {
     root = buildTree(inOrder())
   }
@@ -144,7 +152,8 @@ const tree = (array) => {
     preOrder,
     postOrder,
     rebalance,
-    height
+    height,
+    depth
   }
 }
 
@@ -212,3 +221,11 @@ console.log(newTree.height(newTree.find(1)))
 console.log(newTree.height(newTree.find(-5)))
 
 console.log('----------------')
+
+console.log(newTree.depth(newTree.root))
+console.log(newTree.depth(newTree.find(3.75)))
+console.log(newTree.depth(newTree.find(1)))
+console.log(newTree.depth(newTree.find(-5)))
+
+console.log('----------------')
+
