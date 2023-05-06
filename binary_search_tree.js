@@ -124,6 +124,20 @@ const tree = (array) => {
     return Math.min(left, right) + 1
   }
 
+  const isBalanced = (node = root) => {
+    return isBalancedRec(node) > 0 ? true : false
+  }
+
+  const isBalancedRec = (node = root) => {
+    if (node === null) return 0
+    const left = isBalancedRec(node.left)
+    const right = isBalancedRec(node.right)
+    if (left === -1) return -1
+    if (right === -1) return -1
+    if ((left - right) > 1 || (left - right) < -1) return -1
+    return Math.max(left, right) + 1
+  }
+
   const rebalance = () => {
     root = buildTree(inOrder())
   }
@@ -154,6 +168,8 @@ const tree = (array) => {
     rebalance,
     height,
     depth
+    depth,
+    isBalanced,
   }
 }
 
@@ -226,6 +242,18 @@ console.log(newTree.depth(newTree.root))
 console.log(newTree.depth(newTree.find(3.75)))
 console.log(newTree.depth(newTree.find(1)))
 console.log(newTree.depth(newTree.find(-5)))
+
+console.log('----------------')
+
+console.log(newTree.isBalanced())
+newTree.insert(26)
+newTree.insert(27)
+newTree.insert(28)
+newTree.insert(29)
+newTree.insert(30)
+console.log(newTree.isBalanced())
+newTree.rebalance()
+console.log(newTree.isBalanced())
 
 console.log('----------------')
 
