@@ -40,6 +40,25 @@ const tree = (array) => {
     return insertAt
   }
 
+  const deleteNode = (toDelete) => {
+    root = deleteNodeRec(toDelete)
+  }
+
+  const deleteNodeRec = (toDelete, node = root) => {
+    if (node === null) return node
+    else if (toDelete < node.data) node.left = deleteNodeRec(toDelete, node.left)
+    else if (toDelete > node.data) node.right = deleteNodeRec(toDelete, node.right)
+    else {
+      if (!node.left && !node.right) return null
+      if (!node.right) return node.left
+      else if (!node.left) return node.right
+
+      node.data = find(inOrder(null, node.right)[0]).data
+      node.right = deleteNodeRec(node.data, node.right)
+    }
+    return node
+  }
+
   const find = (toFind, node = root) => {
     if (!node) return null
     while (node) {
@@ -167,9 +186,9 @@ const tree = (array) => {
     postOrder,
     rebalance,
     height,
-    depth
     depth,
     isBalanced,
+    deleteNode
   }
 }
 
